@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Auth } from "./pages/Auth"
+import { MainContainer } from "./pages/MainContainer";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
   return (
     <>
       {!apiKey && <Auth setApiKey={setApiKeyAndStore} />}
-      {apiKey && <h1>Hello {apiKey}</h1>}
+      {apiKey && <MainContainer />}
     </>
   )
 }
