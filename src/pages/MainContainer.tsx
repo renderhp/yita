@@ -18,7 +18,7 @@ export function MainContainer(
             margin="8px"
         >
             <Tabs.Root
-                defaultValue="members"
+                defaultValue="targets"
                 variant="plain"
             >
                 <Box

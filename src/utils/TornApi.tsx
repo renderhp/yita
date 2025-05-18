@@ -1,3 +1,13 @@
+import type { Player } from "@/utils/model.tsx"
+
+export async function getPlayerDetails(_apiKey: string, playerId: number) {
+    return {
+        "userID": playerId,
+        "userName": "Testing",
+        "lastActive": "10 minutes ago",
+    } as Player
+}
+
 export async function validateAPIKey(apiKey: string) {
     try {
         const response = await fetch("https://api.torn.com/v2/user", {
