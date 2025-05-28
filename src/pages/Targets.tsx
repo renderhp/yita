@@ -14,12 +14,12 @@ export function Targets({ apiKey }: TargetsProps) {
     const [addTargetsDialogOpen, setAddTargetsDialogOpen] = useState(false);
 
     useEffect(() => {
-        const fetchIds = async () => {
+        const fetchTargets = async () => {
             const targets = await getTargets(apiKey);
             setTargets(targets);
         };
 
-        fetchIds();
+        fetchTargets();
     }, [apiKey]);
 
     const handleAddFromFactionClicked = () => {
@@ -27,6 +27,18 @@ export function Targets({ apiKey }: TargetsProps) {
     }
 
     const onTargetsPicked = (targets: Player[]) => { // eslint-disable-line @typescript-eslint/no-unused-vars
+        // deduplicate targets
+        setTargets((prevTargets) => {
+            const playerMap = new Map<Player['id'], Player>();
+            for (const player of prevTargets) {
+                playerMap.set(player.id, player);
+            }
+            for (const player of targets) {
+                playerMap.set(player.id, player);
+            }
+            return Array.from(playerMap.values());
+        }
+        );
         setAddTargetsDialogOpen(false);
     }
 

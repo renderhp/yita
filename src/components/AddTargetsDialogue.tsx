@@ -20,10 +20,29 @@ export function AddTargetsDialogue({
 }: AddTargetsDialogueProps) {
     const [factionId, setFactionId] = useState("");
     const [factionMembers, setFactionMembers] = useState<Player[]>([]);
+    const [selectedTargets, setSelectedTargets] = useState<Set<Player>>(new Set());
 
     const handleLoadFaction = async () => {
         const members = await getFactionMembers(apiKey, parseInt(factionId));
         setFactionMembers(members);
+    }
+
+    const handlePlayerRowClick = (player: Player) => {
+        const newSelectedTargets = new Set(selectedTargets);
+        if (newSelectedTargets.has(player)) {
+            newSelectedTargets.delete(player);
+        }
+        else {
+            newSelectedTargets.add(player);
+        }
+        setSelectedTargets(newSelectedTargets);
+    }
+
+    const handleSubmit = () => {
+        setFactionId("");
+        setFactionMembers([]);
+        onTargetsPicked([...selectedTargets]);
+        setSelectedTargets(new Set());
     }
 
     return (
@@ -58,13 +77,13 @@ export function AddTargetsDialogue({
                                     <Spacer />
                                 </HStack>
                                 <Box flexGrow={1} overflowY="auto" borderWidth="1px" borderRadius="md">
-                                    <TargetsTable targets={factionMembers} />
+                                    <TargetsTable targets={factionMembers} isSelectable={true} selectedTargets={selectedTargets} onPlayerRowClick={handlePlayerRowClick} />
                                 </Box>
                             </VStack>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Button variant="ghost" onClick={onClose}>Cancel</Button>
-                            <Button variant="solid" onClick={() => onTargetsPicked(["TODO"])}>Add</Button>
+                            <Button variant="solid" onClick={handleSubmit}>Add</Button>
                         </Dialog.Footer>
                     </Dialog.Content>
                 </Dialog.Positioner>
