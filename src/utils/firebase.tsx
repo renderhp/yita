@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc } from "firebase/firestore"
-import type { Player } from "@/utils/model"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -16,19 +15,6 @@ export const db = getFirestore(app);
 
 export async function getTargets(apiKey: string) {
     const targetListRef = doc(db, "targets", apiKey)
-    const targetListSnap = await getDoc(targetListRef)
-
-    if (targetListSnap.exists()) {
-        const result = targetListSnap.data().targets.map((target: number) => {
-            return {
-                userID: target,
-                userName: "Loading...", // Placeholder, will be updated later
-                lastActive: "Loading...", // Placeholder, will be updated later
-            } as Player
-        });
-        return result;
-    } else {
-        console.log(`Targets for ${apiKey} do not exist in the DB`)
-        return [];
-    }
+    const targetListSnap = await getDoc(targetListRef) // eslint-disable-line @typescript-eslint/no-unused-vars
+    return []
 }

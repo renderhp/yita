@@ -23,6 +23,7 @@ export function MainContainer({ apiKey }: MainContainerProps) {
             <Tabs.Root
                 defaultValue="targets"
                 variant="plain"
+                width="80%"
             >
                 <Box
                     alignContent="center"

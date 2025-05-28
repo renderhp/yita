@@ -1,5 +1,7 @@
 export type Player = {
-    userID: number,
-    userName: string,
-    lastActive: string,
+    id: number;
+    name: string;
+    level: number;
+    status: string;
+    lastActionTime: number;
 }
