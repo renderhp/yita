@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       {!apiKey && <Auth setApiKey={setApiKeyAndStore} />}
-      {apiKey && <MainContainer />}
+      {apiKey && <MainContainer apiKey={apiKey} />}
     </>
   )
 }

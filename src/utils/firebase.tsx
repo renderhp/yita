@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc } from "firebase/firestore"
-import type { Target } from "@/utils/model"
+import type { Player } from "@/utils/model"
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -22,7 +22,9 @@ export async function getTargets(apiKey: string) {
         const result = targetListSnap.data().targets.map((target: number) => {
             return {
                 userID: target,
-            } as Target
+                userName: "Loading...", // Placeholder, will be updated later
+                lastActive: "Loading...", // Placeholder, will be updated later
+            } as Player
         });
         return result;
     } else {

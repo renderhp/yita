@@ -6,8 +6,11 @@ import { Icon } from "@chakra-ui/react"
 import { Targets } from "./Targets";
 import { Settings } from "./Settings";
 
-export function MainContainer(
-) {
+type MainContainerProps = {
+    apiKey: string;
+};
+
+export function MainContainer({ apiKey }: MainContainerProps) {
     return (
         <Box
             w="100%"
@@ -47,7 +50,7 @@ export function MainContainer(
                     alignContent="center"
                     justifyContent="center"
                 >
-                    <Tabs.Content value="targets"><Targets /></Tabs.Content>
+                    <Tabs.Content value="targets"><Targets apiKey={apiKey} /></Tabs.Content>
                     <Tabs.Content value="traffic">Not Implemented Yet</Tabs.Content>
                     <Tabs.Content value="settings"><Settings /></Tabs.Content>
                 </Box>

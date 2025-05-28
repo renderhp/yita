@@ -3,7 +3,3 @@ export type Player = {
     userName: string,
     lastActive: string,
 }
-
-export type Target = {
-    userID: number,
-}
