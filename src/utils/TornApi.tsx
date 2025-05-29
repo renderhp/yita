@@ -1,4 +1,5 @@
 import type { Player } from "@/utils/model.tsx"
+import { getBspPredictionsForMultiple } from "@/utils/utils";
 
 interface TornApiMember {
     id: number;
@@ -43,12 +44,16 @@ export async function getFactionMembers(apiKey: string, factionId: number) {
             throw new Error("Invalid API response format");
         }
 
+        const predictions = await getBspPredictionsForMultiple(apiKey, data.members.map(member => member.id));
+
         return data.members.map((member: TornApiMember) => ({
             id: member.id,
             name: member.name,
             level: member.level,
             status: member.status.description,
             lastActionTime: member.last_action.timestamp,
+            battleStatsPrediction: predictions.find(pred => pred.id === member.id)?.battleStatsPrediction,
+            battleScorePrediction: predictions.find(pred => pred.id === member.id)?.battleScorePrediction,
         })) as Player[];
     } catch (error) {
         throw new Error(`${error instanceof Error ? error.message : "Unknown error"}`);

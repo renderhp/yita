@@ -4,4 +4,12 @@ export type Player = {
     level: number;
     status: string;
     lastActionTime: number;
+    battleStatsPrediction?: number;
+    battleScorePrediction?: number;
+}
+
+export type BSPPrediction = {
+    id: number;
+    battleStatsPrediction: number;
+    battleScorePrediction: number;
 }

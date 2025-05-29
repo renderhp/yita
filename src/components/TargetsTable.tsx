@@ -1,6 +1,6 @@
 import { Table } from "@chakra-ui/react";
 import type { Player } from "@/utils/model"
-import { formatTimeAgo } from "@/utils/utils";
+import { formatBattleStats, formatTimeAgo } from "@/utils/utils";
 
 type TargetsTableProps = {
     targets: Player[],
@@ -31,6 +31,7 @@ export function TargetsTable(
                     <Table.ColumnHeader>Name</Table.ColumnHeader>
                     <Table.ColumnHeader>Level</Table.ColumnHeader>
                     <Table.ColumnHeader>Status</Table.ColumnHeader>
+                    <Table.ColumnHeader>Predicted Stats</Table.ColumnHeader>
                     <Table.ColumnHeader textAlign="end">Last Active</Table.ColumnHeader>
                 </Table.Row>
             </Table.Header>
@@ -48,6 +49,7 @@ export function TargetsTable(
                             <Table.Cell>{item.name}</Table.Cell>
                             <Table.Cell>{item.level}</Table.Cell>
                             <Table.Cell>{item.status}</Table.Cell>
+                            <Table.Cell>{`${formatBattleStats(item.battleStatsPrediction)} (Score: ${item.battleScorePrediction})`}</Table.Cell>
                             <Table.Cell textAlign="end">{formatTimeAgo(item.lastActionTime)}</Table.Cell>
                         </Table.Row>
                     )
