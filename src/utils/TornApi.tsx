@@ -32,18 +32,15 @@ export async function getFactionMembers(apiKey: string, factionId: number) {
             },
         });
         if (!response.ok) {
-            console.error("Failed to fetch faction members");
-            return [];
+            throw new Error("Failed to fetch faction members");
         }
         const data: FactionMembersApiResponse = await response.json();
         if (data.error) {
-            console.error(data.error);
-            return [];
+            throw new Error(`API Error: ${data.error.error}`);
         }
 
         if (!data.members || !Array.isArray(data.members)) {
-            console.error("API response did not contain a 'members' array or it was not in the expected format.", data);
-            return [];
+            throw new Error("Invalid API response format");
         }
 
         return data.members.map((member: TornApiMember) => ({
@@ -54,8 +51,7 @@ export async function getFactionMembers(apiKey: string, factionId: number) {
             lastActionTime: member.last_action.timestamp,
         })) as Player[];
     } catch (error) {
-        console.error("Fetch error:", error);
-        return [];
+        throw new Error(`${error instanceof Error ? error.message : "Unknown error"}`);
     }
 }
 
