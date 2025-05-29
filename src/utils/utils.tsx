@@ -7,7 +7,7 @@ export async function getBspPredictionsForMultiple(
     targetIds: (string | number)[],
 ): Promise<BSPPrediction[]> {
     if (!targetIds || targetIds.length === 0) {
-        console.log("[Frontend] No target IDs provided to getBspPredictionsForMultiple.");
+        console.error("[Frontend] No target IDs provided to getBspPredictionsForMultiple.");
         return [];
     }
 
@@ -35,9 +35,6 @@ export async function getBspPredictionsForMultiple(
         }
 
         try {
-            console.log(responseText)
-            console.log("Parsed responseText:", JSON.parse(responseText));
-
             // Some any *wink wink*, can't be bothered to type this properly right now
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const results = JSON.parse(responseText).map((result: any) => {
