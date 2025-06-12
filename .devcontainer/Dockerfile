@@ -8,6 +8,7 @@ RUN \
     pacman-key --populate && \
     # Install core dependencies for development and plugins
     pacman -S --noconfirm \
+    openssh \
     neovim \
     git \
     fish \
@@ -20,7 +21,8 @@ RUN \
     unzip \
     wget \
     tmux \
-    lazygit
+    lazygit && \
+    systemctl enable sshd.service
 
 RUN \
     useradd -m -s /usr/bin/fish renderhp && \
